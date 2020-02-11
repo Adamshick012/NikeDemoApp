@@ -1,0 +1,8 @@
+<resources>
+    C:\Users\Optimous\AndroidStudioProjects\iTunesRssFeed2\app\src\main\res\values-v21\styles.xml
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>

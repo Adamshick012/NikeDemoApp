@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item
+        android:id="@+id/nav_top_albums"
+        android:title="@string/top_albums" />
+    <item
+        android:id="@+id/nav_coming_soon"
+        android:title="@string/coming_soon" />
+    <item
+        android:id="@+id/nav_hot_tracks"
+        android:title="@string/hot_tracks" />
+    <item
+        android:id="@+id/nav_new_releases"
+        android:title="@string/new_releases" />
+    <item
+        android:id="@+id/nav_top_songs"
+        android:title="@string/top_songs" />
+</menu>
