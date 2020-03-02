@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.AlbumsDetailFragment">
+        <activity android:name=".detail.AlbumsDetailFragment">
         </activity>
     </application>
 

@@ -75,32 +75,13 @@ class FeedFragment  : Fragment() {
 
         feedViewModel.navigateToAlbumDetail.observe(viewLifecycleOwner, Observer {result ->
             result?.let {album ->
-                val imageUrl = album.artworkUrl100
-                val listOfGenres = album.genres.joinToString(separator = ", ") { it.name }
-                val artistName = album.artistName
-                val albumName = album.name
-                val releaseDate = album.releaseDate
-                val copyright = album.copyright
-                val linkToiTunes = album.url
                 this.findNavController().navigate(
-                    FeedFragmentDirections.actionFeedFragmentToAlbumsDetailFragment(
-                        imageUrl,
-                        listOfGenres,
-                        artistName,
-                        albumName,
-                        releaseDate,
-                        copyright,
-                        linkToiTunes
-                    )
+                    FeedFragmentDirections.actionFeedFragmentToAlbumsDetailFragment(album)
                 )
                 feedViewModel.onAlbumDetailNavigated()
             }
         })
         feedViewModel.getMusicList(rssFeed)
-//        feedViewModel.topAlbumsList.observe(viewLifecycleOwner, Observer { albumList ->
-//            viewAdapter.submitList(albumList)
-//            binding.albumsList.smoothScrollToPosition(0)
-//        })
         viewManager = GridLayoutManager(this.context,2)
         viewAdapter =
             MainAdapter(ImageListener { albumId ->

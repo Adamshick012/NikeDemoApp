@@ -6,6 +6,8 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'androidx.navigation.safeargs'
 
+apply plugin: 'kotlin-android-extensions'
+
 android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

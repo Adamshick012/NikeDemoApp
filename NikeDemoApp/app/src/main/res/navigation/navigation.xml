@@ -13,28 +13,12 @@
     </fragment>
     <fragment
         android:id="@+id/albumsDetailFragment"
-        android:name="com.example.nikedemoapp.ui.AlbumsDetailFragment"
+        android:name="com.example.nikedemoapp.detail.AlbumsDetailFragment"
         android:label="AlbumsDetailFragment">
         <argument
-            android:name="imageUrl"
-            app:argType="string" />
-        <argument
-            android:name="listOfGenres"
-            app:argType="string" />
-        <argument android:name="artistName"
-            app:argType="string" />
-        <argument
-            android:name="albumName"
-            app:argType="string" />
-        <argument
-            android:name="releaseDate"
-            app:argType="string" />
-        <argument
-            android:name="copyright"
-            app:argType="string" />
-        <argument
-            android:name="linkToiTunes"
-            app:argType="string" />
+            android:name="albumInfo"
+            app:argType="com.example.nikedemoapp.models.Result"
+            />
         <action
             android:id="@+id/action_albumsDetailFragment_to_feedFragment"
             app:destination="@+id/feedFragment"

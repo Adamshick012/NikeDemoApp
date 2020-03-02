@@ -1,9 +1,11 @@
 package com.example.nikedemoapp.models
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-
+@Parcelize
 data class Result(
     @SerializedName("artistId")
     @Expose
@@ -35,10 +37,11 @@ data class Result(
     @SerializedName("url")
     @Expose
     val url: String
-) {
+): Parcelable {
+    @Parcelize
     data class Genre(
         @SerializedName("name")
         @Expose
         val name: String
-    )
+    ): Parcelable
 }
