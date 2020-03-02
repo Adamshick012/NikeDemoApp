@@ -41,10 +41,10 @@ class FeedViewModel @Inject constructor(private val repository: FeedSource) : Vi
     }
 
     fun getMusicList(feedType: String) {
-
+        _status.value = iTuneApiStatus.LOADING
         viewModelScope.launch {
             try {
-                _status.value = iTuneApiStatus.LOADING
+
                 val results = repository.getMusicList(feedType).body()?.feed?.results?.toMutableList()
                 _status.value = iTuneApiStatus.DONE
                 _topAlbumsList.postValue(results)
