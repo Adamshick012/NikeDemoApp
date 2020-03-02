@@ -1,26 +1,33 @@
-package com.example.nikedemoapp.ui
+package com.example.nikedemoapp.feed
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.nikedemoapp.MyApplication
 import com.example.nikedemoapp.R
 import com.example.nikedemoapp.databinding.FragmentFeedBinding
+import javax.inject.Inject
 
 class FeedFragment  : Fragment() {
 
-    private lateinit var feedViewModel: FeedViewModel
+    @Inject
+    lateinit var feedViewModel: FeedViewModel
     private lateinit var viewManager: GridLayoutManager
     private lateinit var viewAdapter: MainAdapter
     private lateinit var binding: FragmentFeedBinding
     var rssFeed = "top-albums"
+    override fun onAttach(context: Context) {
+        (activity?.application as MyApplication).appComponent.inject(this)
+        super.onAttach(context)
+    }
+
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.activity_main_drawer, menu)
@@ -60,8 +67,8 @@ class FeedFragment  : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_feed, container, false)
-        feedViewModel =
-            ViewModelProvider(this).get(FeedViewModel::class.java)
+//        feedViewModel =
+//            ViewModelProvider(this).get(FeedViewModel::class.java)
         binding.feedViewModel = feedViewModel
         binding.lifecycleOwner = this
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.top_albums)
@@ -76,15 +83,16 @@ class FeedFragment  : Fragment() {
                 val copyright = album.copyright
                 val linkToiTunes = album.url
                 this.findNavController().navigate(
-                    FeedFragmentDirections
-                        .actionFeedFragmentToAlbumsDetailFragment(
-                            imageUrl,
-                            listOfGenres,
-                            artistName,
-                            albumName,
-                            releaseDate,
-                            copyright,
-                            linkToiTunes))
+                    FeedFragmentDirections.actionFeedFragmentToAlbumsDetailFragment(
+                        imageUrl,
+                        listOfGenres,
+                        artistName,
+                        albumName,
+                        releaseDate,
+                        copyright,
+                        linkToiTunes
+                    )
+                )
                 feedViewModel.onAlbumDetailNavigated()
             }
         })
@@ -94,9 +102,10 @@ class FeedFragment  : Fragment() {
             binding.albumsList.smoothScrollToPosition(0)
         })
         viewManager = GridLayoutManager(this.context,2)
-        viewAdapter = MainAdapter(ImageListener { albumId ->
-            feedViewModel.onAlbumClicked(albumId)
-        })
+        viewAdapter =
+            MainAdapter(ImageListener { albumId ->
+                feedViewModel.onAlbumClicked(albumId)
+            })
         binding.albumsList.apply {
             layoutManager = viewManager
             adapter = viewAdapter

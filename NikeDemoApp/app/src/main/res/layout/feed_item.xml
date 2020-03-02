@@ -9,7 +9,7 @@
             type="com.example.nikedemoapp.models.Result" />
         <variable
             name="clickListener"
-            type="com.example.nikedemoapp.ui.ImageListener" />
+            type="com.example.nikedemoapp.feed.ImageListener" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,6 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:imageUrl="@{result.artworkUrl100}"
             />
         <TextView
             android:id="@+id/text_artist"

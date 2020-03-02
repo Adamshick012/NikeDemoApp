@@ -6,7 +6,7 @@
 
         <variable
             name="feedViewModel"
-            type="com.example.nikedemoapp.ui.FeedViewModel" />
+            type="com.example.nikedemoapp.feed.FeedViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

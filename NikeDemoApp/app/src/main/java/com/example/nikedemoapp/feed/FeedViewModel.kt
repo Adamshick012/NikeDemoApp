@@ -1,4 +1,4 @@
-package com.example.nikedemoapp.ui
+package com.example.nikedemoapp.feed
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.nikedemoapp.repo.FeedSource
 import com.example.nikedemoapp.models.Result
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FeedViewModel  : ViewModel() {
+class FeedViewModel @Inject constructor(private val repository: FeedSource) : ViewModel() {
     var topAlbumsList = MutableLiveData<MutableList<Result>>()
-    private val repository: FeedSource = FeedSource()
 
     private val _navigateToAlbumDetail = MutableLiveData<Result>()
     val navigateToAlbumDetail
