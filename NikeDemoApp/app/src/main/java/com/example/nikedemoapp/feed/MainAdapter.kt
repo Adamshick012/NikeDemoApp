@@ -42,7 +42,6 @@ class MainAdapter(private val onImageListener: ImageListener) :
         }
     }
 
-
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<Result>() {
             override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean =

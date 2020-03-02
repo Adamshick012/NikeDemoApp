@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.nikedemoapp.models.Result
@@ -27,4 +28,10 @@ fun bindImage(imageView: ImageView, imageUrl: String?)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(imageView)
     }
+}
+
+@BindingAdapter("listData")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Result>?) {
+    val adapter = recyclerView.adapter as MainAdapter
+    adapter.submitList(data)
 }

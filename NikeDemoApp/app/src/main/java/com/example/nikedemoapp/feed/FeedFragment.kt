@@ -97,10 +97,10 @@ class FeedFragment  : Fragment() {
             }
         })
         feedViewModel.getMusicList(rssFeed)
-        feedViewModel.topAlbumsList.observe(viewLifecycleOwner, Observer { albumList ->
-            viewAdapter.submitList(albumList)
-            binding.albumsList.smoothScrollToPosition(0)
-        })
+//        feedViewModel.topAlbumsList.observe(viewLifecycleOwner, Observer { albumList ->
+//            viewAdapter.submitList(albumList)
+//            binding.albumsList.smoothScrollToPosition(0)
+//        })
         viewManager = GridLayoutManager(this.context,2)
         viewAdapter =
             MainAdapter(ImageListener { albumId ->
