@@ -5,8 +5,6 @@
     <string name="hot_tracks">Hot Tracks</string>
     <string name="new_releases">New Releases</string>
     <string name="top_songs">Top Songs</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="itunes_button_text">Go to iTunes Album Page</string>
     <string name="album_image_description">Album Cover Image</string>
     <string name="ablum_info">Artist: %1$s\n

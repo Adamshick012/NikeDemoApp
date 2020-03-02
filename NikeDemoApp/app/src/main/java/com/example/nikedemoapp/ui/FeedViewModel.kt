@@ -12,6 +12,22 @@ class FeedViewModel  : ViewModel() {
     var topAlbumsList = MutableLiveData<MutableList<Result>>()
     private val repository: FeedSource = FeedSource()
 
+    private val _navigateToAlbumDetail = MutableLiveData<Result>()
+    val navigateToAlbumDetail
+        get() = _navigateToAlbumDetail
+
+    fun onAlbumClicked(item: Result) {
+        _navigateToAlbumDetail.value = item
+    }
+
+    fun onAlbumDetailNavigated() {
+        _navigateToAlbumDetail.value = null
+    }
+
+    init {
+        getMusicList("top-albums")
+    }
+
     fun getMusicList(feedType: String) {
 
         viewModelScope.launch {
@@ -19,8 +35,8 @@ class FeedViewModel  : ViewModel() {
                 val results = repository.getMusicList(feedType).body()?.feed?.results?.toMutableList()
                 topAlbumsList.postValue(results)
 
-            }catch (exception : Exception){
-                Log.e("Failed to load albums list",""+exception.message)
+            }catch (exception : Throwable){
+                Log.e("Failed to load albums list","${exception.message}")
             }
 
 
