@@ -5,21 +5,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nikedemoapp.repo.FeedSource
-import com.example.nikedemoapp.models.Result
+import com.example.nikedemoapp.repo.FeedRepository
+import com.example.nikedemoapp.models.Album
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 enum class iTuneApiStatus { LOADING, ERROR, DONE }
 
-class FeedViewModel @Inject constructor(private val repository: FeedSource) : ViewModel() {
+class FeedViewModel @Inject constructor(private val repository: FeedRepository) : ViewModel() {
 
-    private val _topAlbumsList = MutableLiveData<MutableList<Result>>()
-    val topAlbumsList : LiveData<MutableList<Result>>
+    private val _topAlbumsList = repository.albums
+    val topAlbumsList : LiveData<List<Album>>
         get() = _topAlbumsList
 
-
-    private val _navigateToAlbumDetail = MutableLiveData<Result>()
+    private val _navigateToAlbumDetail = MutableLiveData<Album>()
     val navigateToAlbumDetail
         get() = _navigateToAlbumDetail
 
@@ -28,7 +27,7 @@ class FeedViewModel @Inject constructor(private val repository: FeedSource) : Vi
     val status
         get() = _status
 
-    fun onAlbumClicked(item: Result) {
+    fun onAlbumClicked(item: Album) {
         _navigateToAlbumDetail.value = item
     }
 
@@ -44,15 +43,11 @@ class FeedViewModel @Inject constructor(private val repository: FeedSource) : Vi
         _status.value = iTuneApiStatus.LOADING
         viewModelScope.launch {
             try {
-
-                val results = repository.getMusicList(feedType).body()?.feed?.results?.toMutableList()
+                repository.getMusicList(feedType)
                 _status.value = iTuneApiStatus.DONE
-                _topAlbumsList.postValue(results)
-
             }catch (exception : Throwable){
                 _status.value = iTuneApiStatus.ERROR
                 Log.e("Failed to load albums list","${exception.message}")
-                _topAlbumsList.value = ArrayList()
             }
 
 

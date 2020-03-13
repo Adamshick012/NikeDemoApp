@@ -6,6 +6,6 @@ import com.example.nikedemoapp.di.DaggerAppComponent
 
 open class MyApplication : Application() {
     val appComponent: AppComponent by lazy {
-        DaggerAppComponent.create()
+        DaggerAppComponent.factory().create(applicationContext)
     }
 }

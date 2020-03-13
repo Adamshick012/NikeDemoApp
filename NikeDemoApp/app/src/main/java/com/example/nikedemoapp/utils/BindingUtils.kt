@@ -1,21 +1,20 @@
-package com.example.nikedemoapp.feed
+package com.example.nikedemoapp.utils
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.nikedemoapp.R
-import com.example.nikedemoapp.models.Result
+import com.example.nikedemoapp.feed.MainAdapter
+import com.example.nikedemoapp.feed.iTuneApiStatus
+import com.example.nikedemoapp.models.Album
 
 @BindingAdapter("albumName")
-fun TextView.setResultImage(item: Result?) {
+fun TextView.setResultImage(item: Album?) {
     item?.let {
         text = "${it.name}\nBY: ${it.artistName}"
     }
@@ -37,7 +36,7 @@ fun bindImage(imageView: ImageView, imageUrl: String?)
 }
 
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<Result>?) {
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Album>?) {
     val adapter = recyclerView.adapter as MainAdapter
     adapter.submitList(data)
 }

@@ -18,17 +18,17 @@
         android:layout_height="match_parent">
 
 
-        <TextView
-            android:id="@+id/main_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:text="@{detailViewModel.mainText}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/album_view"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/main_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="20sp"-->
+<!--            android:text="@{detailViewModel.mainText}"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/album_view"-->
+<!--            />-->
 
         <Button
             android:id="@+id/itunes_link"
@@ -45,7 +45,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="27dp"
         android:contentDescription="@string/album_image_description"
-        app:imageUrl="@{detailViewModel.albumInfo.artworkUrl100}"
+        app:imageUrl="@{detailViewModel.albumInfo.imageUrl}"
         app:layout_constraintBottom_toTopOf="@+id/itunes_link"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent" />

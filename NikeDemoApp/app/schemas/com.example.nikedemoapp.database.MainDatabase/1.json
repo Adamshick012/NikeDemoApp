@@ -1,0 +1,221 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "a8034ddaadfca3ae0908051a8e085265",
+    "entities": [
+      {
+        "tableName": "album_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`albumId` TEXT NOT NULL, `artistId` TEXT NOT NULL, `artistName` TEXT NOT NULL, `artistUrl` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `copyrightText` TEXT NOT NULL, `kind` TEXT NOT NULL, `name` TEXT NOT NULL, `releaseDate` TEXT NOT NULL, `url` TEXT NOT NULL, PRIMARY KEY(`albumId`))",
+        "fields": [
+          {
+            "fieldPath": "albumId",
+            "columnName": "albumId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artistId",
+            "columnName": "artistId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artistName",
+            "columnName": "artistName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artistUrl",
+            "columnName": "artistUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "copyrightText",
+            "columnName": "copyrightText",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "releaseDate",
+            "columnName": "releaseDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "albumId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_album_table_albumId",
+            "unique": false,
+            "columnNames": [
+              "albumId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_album_table_albumId` ON `${TABLE_NAME}` (`albumId`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "genre_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`genreId` TEXT NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`genreId`))",
+        "fields": [
+          {
+            "fieldPath": "genreId",
+            "columnName": "genreId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "genreId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "feed_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`feedId` TEXT NOT NULL, `title` TEXT NOT NULL, PRIMARY KEY(`feedId`))",
+        "fields": [
+          {
+            "fieldPath": "feedId",
+            "columnName": "feedId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "feedId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "AlbumGenreCrossRef",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`albumId` TEXT NOT NULL, `genreId` TEXT NOT NULL, PRIMARY KEY(`albumId`, `genreId`))",
+        "fields": [
+          {
+            "fieldPath": "albumId",
+            "columnName": "albumId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "genreId",
+            "columnName": "genreId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "albumId",
+            "genreId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_AlbumGenreCrossRef_genreId",
+            "unique": false,
+            "columnNames": [
+              "genreId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_AlbumGenreCrossRef_genreId` ON `${TABLE_NAME}` (`genreId`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "MusicFeedAlbumCrossRef",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`feedId` TEXT NOT NULL, `albumId` TEXT NOT NULL, PRIMARY KEY(`feedId`, `albumId`))",
+        "fields": [
+          {
+            "fieldPath": "feedId",
+            "columnName": "feedId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "albumId",
+            "columnName": "albumId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "feedId",
+            "albumId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_MusicFeedAlbumCrossRef_albumId",
+            "unique": false,
+            "columnNames": [
+              "albumId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_MusicFeedAlbumCrossRef_albumId` ON `${TABLE_NAME}` (`albumId`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a8034ddaadfca3ae0908051a8e085265')"
+    ]
+  }
+}

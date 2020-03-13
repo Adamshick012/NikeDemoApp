@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nikedemoapp.databinding.FeedItemBinding
-import com.example.nikedemoapp.models.Result
+import com.example.nikedemoapp.models.Album
 
 class MainAdapter(private val onImageListener: ImageListener) :
-    ListAdapter<Result, MainAdapter.MyViewHolder>(
+    ListAdapter<Album, MainAdapter.MyViewHolder>(
         diffCallback
     ) {
 
@@ -20,14 +20,9 @@ class MainAdapter(private val onImageListener: ImageListener) :
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(onImageListener: ImageListener, item: Result) {
+        fun bind(onImageListener: ImageListener, item: Album) {
             binding.result = item
             binding.clickListener = onImageListener
-//            Glide.with(context)
-//                .load(item.artworkUrl100)
-//                .placeholder(ColorDrawable(Color.BLACK))
-//                .transition(DrawableTransitionOptions.withCrossFade())
-//                .into(binding.imageViewItem)
             binding.executePendingBindings()
         }
         companion object {
@@ -43,11 +38,11 @@ class MainAdapter(private val onImageListener: ImageListener) :
     }
 
     companion object {
-        private val diffCallback = object : DiffUtil.ItemCallback<Result>() {
-            override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean =
-                oldItem.artistId == newItem.artistId
+        private val diffCallback = object : DiffUtil.ItemCallback<Album>() {
+            override fun areItemsTheSame(oldItem: Album, newItem: Album): Boolean =
+                oldItem.name == newItem.name
 
-            override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean =
+            override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean =
                 oldItem == newItem
         }
     }
@@ -65,6 +60,6 @@ class MainAdapter(private val onImageListener: ImageListener) :
     }
 }
 
-class ImageListener(val clickListener: (albumId: Result) -> Unit) {
-    fun onClick(album: Result) = clickListener(album)
+class ImageListener(val clickListener: (albumId: Album) -> Unit) {
+    fun onClick(album: Album) = clickListener(album)
 }

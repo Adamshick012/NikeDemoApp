@@ -6,7 +6,7 @@
 
         <variable
             name="result"
-            type="com.example.nikedemoapp.models.Result" />
+            type="com.example.nikedemoapp.models.Album" />
         <variable
             name="clickListener"
             type="com.example.nikedemoapp.feed.ImageListener" />
@@ -26,7 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:imageUrl="@{result.artworkUrl100}"
+            app:imageUrl="@{result.imageUrl}"
             />
         <TextView
             android:id="@+id/text_artist"

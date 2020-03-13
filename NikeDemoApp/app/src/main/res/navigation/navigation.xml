@@ -13,11 +13,11 @@
     </fragment>
     <fragment
         android:id="@+id/albumsDetailFragment"
-        android:name="com.example.nikedemoapp.detail.AlbumsDetailFragment"
+        android:name="com.example.nikedemoapp.detail.AlbumDetailFragment"
         android:label="AlbumsDetailFragment">
         <argument
             android:name="albumInfo"
-            app:argType="com.example.nikedemoapp.models.Result"
+            app:argType="com.example.nikedemoapp.models.Album"
             />
         <action
             android:id="@+id/action_albumsDetailFragment_to_feedFragment"
