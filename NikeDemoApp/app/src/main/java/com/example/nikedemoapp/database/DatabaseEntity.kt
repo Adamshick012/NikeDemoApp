@@ -4,6 +4,7 @@ package com.example.nikedemoapp.database
 import androidx.annotation.NonNull
 import androidx.room.*
 import com.example.nikedemoapp.models.Album
+import com.example.nikedemoapp.models.Genre
 import com.example.nikedemoapp.models.MusicFeed
 
 @Entity(tableName = "album_table")
@@ -26,11 +27,11 @@ data class DatabaseAlbum constructor(
 fun List<DatabaseAlbumWithGenres>.asAlbumDomainModel() : List<Album> {
     return map {
         Album(
+            albumId = it.album.albumId,
             artistName = it.album.artistName,
             artistUrl = it.album.artistUrl,
             imageUrl = it.album.imageUrl,
             copyrightText = it.album.copyrightText,
-            genres = it.genres.map { genre -> Album.Genre(name = genre.name) },
             kind = it.album.kind,
             name = it.album.name,
             releaseDate = it.album.releaseDate,
@@ -47,9 +48,10 @@ data class DatabaseGenre(
     val name: String
 )
 
-fun List<DatabaseGenre>.asGenreDomainModel() : List<Album.Genre> {
+fun List<DatabaseGenre>.asGenreDomainModel() : List<Genre> {
     return map {
-        Album.Genre(
+        Genre(
+            genreId = it.genreId,
             name = it.name
         )
     }
@@ -81,38 +83,39 @@ data class DatabaseMusicFeed(
     val title: String
 )
 
-//fun DatabaseMusicFeedWithAlbums.asMusicFeedDomainModel() : MusicFeed {
-//    return MusicFeed(
-//            title = feed.title,
-//            albums = albums.map {album -> Album(
-//                artistName = album.album.artistName,
-//                artistUrl = album.album.artistUrl,
-//                imageUrl = album.album.imageUrl,
-//                copyrightText = album.album.copyrightText,
-//                kind = album.album.kind,
-//                name = album.album.name,
-//                releaseDate = album.album.releaseDate,
-//                url = album.album.url,
-//                genres = album.genres.map {genre -> Album.Genre(
-//                    name = genre.name
-//                ) }
-//            ) }
-//        )
-//}
+fun DatabaseMusicFeedWithAlbums.asMusicFeedDomainModel() : MusicFeed {
+    return MusicFeed(
+            title = feed.title,
+            albums = albums.map {album -> Album(
+                albumId = album.albumId,
+                artistName = album.artistName,
+                artistUrl = album.artistUrl,
+                imageUrl = album.imageUrl,
+                copyrightText = album.copyrightText,
+                kind = album.kind,
+                name = album.name,
+                releaseDate = album.releaseDate,
+                url = album.url
+            ) }
+        )
+}
 
 @Entity(primaryKeys = ["feedId", "albumId"])
 data class MusicFeedAlbumCrossRef(
     val feedId: String,
-    @ColumnInfo(name = "albumId", index = true)
     val albumId: String
 )
 
 data class DatabaseMusicFeedWithAlbums(
     @Embedded val feed: DatabaseMusicFeed,
     @Relation(
+        entity = DatabaseAlbum::class,
         parentColumn = "feedId",
         entityColumn = "albumId",
-        associateBy = Junction(MusicFeedAlbumCrossRef::class)
+        associateBy = Junction(
+            value =MusicFeedAlbumCrossRef::class,
+            parentColumn = "feedId",
+            entityColumn = "albumId")
     )
     val albums: List<DatabaseAlbum>
 )

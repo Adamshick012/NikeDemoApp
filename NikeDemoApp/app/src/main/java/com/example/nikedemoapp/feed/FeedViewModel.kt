@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.nikedemoapp.repo.FeedRepository
 import com.example.nikedemoapp.models.Album
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 enum class iTuneApiStatus { LOADING, ERROR, DONE }
@@ -18,7 +19,7 @@ class FeedViewModel @Inject constructor(private val repository: FeedRepository) 
     val topAlbumsList : LiveData<List<Album>>
         get() = _topAlbumsList
 
-    private val _navigateToAlbumDetail = MutableLiveData<Album>()
+    private val _navigateToAlbumDetail = MutableLiveData<String>()
     val navigateToAlbumDetail
         get() = _navigateToAlbumDetail
 
@@ -27,7 +28,7 @@ class FeedViewModel @Inject constructor(private val repository: FeedRepository) 
     val status
         get() = _status
 
-    fun onAlbumClicked(item: Album) {
+    fun onAlbumClicked(item: String) {
         _navigateToAlbumDetail.value = item
     }
 
@@ -41,7 +42,7 @@ class FeedViewModel @Inject constructor(private val repository: FeedRepository) 
 
     fun getMusicList(feedType: String) {
         _status.value = iTuneApiStatus.LOADING
-        viewModelScope.launch {
+        runBlocking {
             try {
                 repository.getMusicList(feedType)
                 _status.value = iTuneApiStatus.DONE

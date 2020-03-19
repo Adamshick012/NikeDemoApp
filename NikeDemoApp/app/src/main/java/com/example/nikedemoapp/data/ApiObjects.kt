@@ -2,6 +2,7 @@ package com.example.nikedemoapp.data
 
 import com.example.nikedemoapp.database.DatabaseAlbum
 import com.example.nikedemoapp.database.DatabaseMusicFeed
+import com.example.nikedemoapp.database.MusicFeedAlbumCrossRef
 import com.example.nikedemoapp.models.Album
 import com.example.nikedemoapp.models.MusicFeed
 import com.google.gson.annotations.Expose
@@ -72,26 +73,26 @@ data class FeedData(
     }
 }
 
-fun FeedData.asMusicFeedDomainModel(): MusicFeed {
-    return MusicFeed(
-        title = feed.title,
-        albums = feed.results.map { result ->
-            Album(
-                artistName = result.artistName,
-                artistUrl = result.artistUrl,
-                imageUrl = result.artworkUrl100,
-                copyrightText = result.copyright,
-                genres = result.genres.map { Album.Genre (
-                    name = it.name
-                ) },
-                kind = result.kind,
-                name = result.name,
-                releaseDate = result.releaseDate,
-                url = result.url
-            )
-        }
-    )
-}
+//fun FeedData.asMusicFeedDomainModel(): MusicFeed {
+//    return MusicFeed(
+//        title = feed.title,
+//        albums = feed.results.map { result ->
+//            Album(
+//                artistName = result.artistName,
+//                artistUrl = result.artistUrl,
+//                imageUrl = result.artworkUrl100,
+//                copyrightText = result.copyright,
+//                genres = result.genres.map { Album.Genre (
+//                    name = it.name
+//                ) },
+//                kind = result.kind,
+//                name = result.name,
+//                releaseDate = result.releaseDate,
+//                url = result.url
+//            )
+//        }
+//    )
+//}
 
 fun FeedData.asMusicFeedDatabaseModel(): DatabaseMusicFeed {
     return DatabaseMusicFeed(
@@ -100,7 +101,7 @@ fun FeedData.asMusicFeedDatabaseModel(): DatabaseMusicFeed {
     )
 }
 
-fun FeedData.asAlbumDatabaseModel(): Array<DatabaseAlbum> {
+fun FeedData.asAlbumDatabaseModel(): List<DatabaseAlbum> {
     return feed.results.map { result ->
         DatabaseAlbum(
             albumId = result.id,
@@ -113,5 +114,13 @@ fun FeedData.asAlbumDatabaseModel(): Array<DatabaseAlbum> {
             name = result.name,
             releaseDate = result.releaseDate,
             url = result.url)
-    }.toTypedArray()
+    }
+}
+
+fun FeedData.asAlbumFeedCrossRefDatabaseModel(): List<MusicFeedAlbumCrossRef> {
+    return feed.results.map { result ->
+        MusicFeedAlbumCrossRef(
+            albumId = result.id,
+            feedId = feed.feedId)
+    }
 }

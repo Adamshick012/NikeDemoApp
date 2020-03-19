@@ -60,6 +60,6 @@ class MainAdapter(private val onImageListener: ImageListener) :
     }
 }
 
-class ImageListener(val clickListener: (albumId: Album) -> Unit) {
-    fun onClick(album: Album) = clickListener(album)
+class ImageListener(val clickListener: (albumId: String) -> Unit) {
+    fun onClick(albumId: String) = clickListener(albumId)
 }

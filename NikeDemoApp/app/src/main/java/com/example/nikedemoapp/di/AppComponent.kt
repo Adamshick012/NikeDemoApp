@@ -31,12 +31,6 @@ interface AppComponent {
 //    fun inject(fragment: FeedFragment)
     val feedRepository: FeedRepository
 
-    @Component.Builder
-    interface Builder {
-        fun build(): AppComponent
-
-        fun networkModule(networkModule: NetworkModule): Builder
-    }
 }
 
 @Module(
